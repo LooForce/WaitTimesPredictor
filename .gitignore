@@ -1,0 +1,16 @@
+# Virtual environment
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Models and data
+Models/
+QueueTimesData/
+*.pkl
+*.csv
+
+# OS-specific
+.DS_Store
+Thumbs.db

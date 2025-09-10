@@ -51,7 +51,34 @@ def get_last_hour(ride_id):
         result = last_hour_df[['Date', 'Wait']].values.tolist()
         if result == None:
             print(f"Ride ID {ride_id} has no data in the last hour.")
-        print(result)
+        return result
+        
+    except (IndexError, ValueError, json.JSONDecodeError) as e:
+        print(f"{month}/{day}/{year} not found")
+        return []
+
+def get_day(ride_id, year=2025, month=None, day=None):
+    url = f"https://queue-times.com/en-US/parks/16/rides/{ride_id}?given_date={year}-{month}-{day}"
+    page = requests.get(url)
+    doc = BeautifulSoup(page.content, "lxml")
+    try:
+        front_index = doc.find_all('script')[7].text.index("2ecc71") + 12
+        end_index = doc.find_all('script')[7].text.index("Reported closed") - 14
+        script = doc.find_all('script')[7].text.strip()[front_index:end_index]
+        data = json.loads(script)  # convert to object
+
+        # Convert to DataFrame for easy filtering
+        df = pd.DataFrame(data, columns=['Date', 'Wait'])
+        df['Date'] = pd.to_datetime(df['Date'], format="%m/%d/%y %H:%M:%S")
+        df['Wait'] = df['Wait'].astype(float)
+
+        # Sort and return all today's data
+        df = df.sort_values('Date')
+        result = df[['Date', 'Wait']].values.tolist()
+
+        if not result:
+            print(f"Ride ID {ride_id} has no data for {month}/{day}/{year}.")
+
         return result
         
     except (IndexError, ValueError, json.JSONDecodeError) as e:
