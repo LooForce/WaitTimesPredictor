@@ -7,9 +7,7 @@ __pycache__/
 
 # Models and data
 Models/
-QueueTimesData/
 *.pkl
-*.csv
 
 # OS-specific
 .DS_Store
