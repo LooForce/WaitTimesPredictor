@@ -65,8 +65,4 @@ Collecting data
 ---------------
 - `collect_data.py` contains functions that fetch ride-specific pages and parse embedded JSON from page scripts. See `get_day` and `get_last_hour`.
 
-```bash
-pip install lxml
-```
-
 Enjoy!
