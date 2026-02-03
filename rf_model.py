@@ -4,7 +4,6 @@ import numpy as np
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error
-from collect_data import get_last_hour
 import joblib
 
 ### This model is trained on previous wait times + time-of-day + day-of-week
