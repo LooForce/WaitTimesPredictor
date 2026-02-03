@@ -6,8 +6,6 @@ import altair as alt
 
 from collect_data import get_day, get_last_hour
 from rf_model import predict_from_last_hour
-
-
 import joblib
 
 # Load rides
@@ -67,5 +65,24 @@ else:
     ).interactive()
 
     st.altair_chart(chart, use_container_width=True)
+
+    # About section
+    with st.expander("About Mouse Waiter"):
+        st.write("""
+        Mouse Waiter is an application that predicts wait times for rides at theme parks using historical data and machine learning models.
+        
+        **How it works:**
+        - Collects historical wait time data from Queue-Times.com.
+        - Trains Random Forest models for each ride based on past wait times and temporal features.
+        - Predicts future wait times based on the most recent data.
+        
+        **Technologies used:**
+        - Python, Streamlit for the web app interface.
+        - requests and BeautifulSoup for web scraping.
+        - Pandas and NumPy for data manipulation.
+        - Scikit-learn for machine learning.
+        
+        This project is a personal endeavor to explore data science and machine learning in the context of theme park experiences. Enjoy planning your day with Mouse Waiter!
+        """)
 
     

@@ -30,7 +30,7 @@ def get_last_hour(ride_id):
     day = f"{now.day:02d}"
     url = f"https://queue-times.com/en-US/parks/16/rides/{ride_id}?given_date={year}-{month}-{day}"
     page = requests.get(url)
-    doc = BeautifulSoup(page.content, "lxml")
+    doc = BeautifulSoup(page.content, "html.parser")
     try:
         front_index = doc.find_all('script')[7].text.index("2ecc71") + 12
         end_index = doc.find_all('script')[7].text.index("Reported closed") - 14
@@ -57,10 +57,11 @@ def get_last_hour(ride_id):
         print(f"{month}/{day}/{year} not found")
         return []
 
-def get_day(ride_id, year=2025, month=None, day=None):
+def get_day(ride_id, year=2026, month=None, day=None):
     url = f"https://queue-times.com/en-US/parks/16/rides/{ride_id}?given_date={year}-{month}-{day}"
     page = requests.get(url)
-    doc = BeautifulSoup(page.content, "lxml")
+    doc = BeautifulSoup(page.content, "html.parser")
+    print("DOC RECEIVED")
     try:
         front_index = doc.find_all('script')[7].text.index("2ecc71") + 12
         end_index = doc.find_all('script')[7].text.index("Reported closed") - 14
@@ -86,8 +87,4 @@ def get_day(ride_id, year=2025, month=None, day=None):
         return []
 
 if __name__ == "__main__":
-    # Example usage:
-    # collect()
-    # last_hour = get_last_hour(ride_id=284)
-    # print(last_hour)
     pass
