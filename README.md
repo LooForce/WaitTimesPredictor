@@ -42,13 +42,17 @@ Add the venv to gitignore if it's not already ignored:
 echo ".venv" >> .gitignore
 ```
 
-Train models
-------------
-Train the random-forest models using `rf_model.py`. This script reads ride CSV data (from `QueueTimesData/` or `wait_times.csv`) and writes model artifacts into `Models/`. The data is taken from QueueTimes.com API and is training data from the year 2025. 
-
+Collect Data
+---------------------
+Run the line to get the most updated information saved to the csv for better model prediction
 ```bash
-# run training (may take some time depending on data)
-python rf_model.py
+python3 wait_time_SR
+```
+
+Train Models
+---------------------
+```bash
+python3 rf_model.py
 ```
 
 Run the Streamlit app
@@ -61,8 +65,5 @@ streamlit run stream_app.py
 
 This opens a browser UI to select rides and dates and view predictions.
 
-Collecting data
----------------
-- `collect_data.py` contains functions that fetch ride-specific pages and parse embedded JSON from page scripts. See `get_day` and `get_last_hour`.
 
 Enjoy!

@@ -12,7 +12,6 @@ SEQ_LEN = 12  # 12 samples = 1 hour if data is at 5-min intervals
 PRED_STEPS = 6  # Predict next 20 minutes (4 x 5min)
 MODEL_DIR = "Models"
 
-# Ensure the Models folder exists
 os.makedirs(MODEL_DIR, exist_ok=True)
 
 # Create sequences for training
@@ -106,7 +105,3 @@ if __name__ == "__main__":
     #ride_id = int(input("Enter ride ID for training/prediction: "))
     for ride in rides_df.iterrows():
         model = get_or_train_model(ride[1])
-    
-    # Make predictions
-    #last_hour_data = get_last_hour(ride_id)
-    #predict_from_last_hour(last_hour_data, model)

@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 
 DATA_FOLDER = "QueueTimesData"
 
-def get_ride_data(csv_file, ride_id, month, day, year=2025):
+def get_ride_data(csv_file, ride_id, month, day, year=datetime.now().year):
     url = f"https://queue-times.com/en-US/parks/16/rides/{ride_id}?given_date={year}-{month}-{day}"
     page = requests.get(url)
     doc = BeautifulSoup(page.content, "lxml")
@@ -36,7 +36,7 @@ def get_ride_data(csv_file, ride_id, month, day, year=2025):
     except (IndexError, ValueError, json.JSONDecodeError) as e:
         print(f"{month}/{day}/{year} not found")
 
-def collect_ride_data(csv_file, ride_id, months, year=2025):
+def collect_ride_data(csv_file, ride_id, months, year=datetime.now().year):
     os.makedirs(DATA_FOLDER, exist_ok=True)
     file_path = os.path.join(DATA_FOLDER, csv_file)
 
@@ -77,10 +77,11 @@ def plot_ride_data(csv_file):
 
 if __name__ == "__main__":
     rides_df = pd.read_csv("rides.csv")
-    months = "1 2 3 4 5 6 7 8 9".split()  # Replace with desired months
+    cur_month = datetime.now().month
+    months = [month for month in range(1, cur_month + 1)]
 
     for _, row in rides_df.iterrows():
-        csv_file = f"{row['file_name']}"
+        csv_file = f"{row['file_name'] + '.csv'}"
         ride_id = str(row['ride_id'])
         print(f"Collecting data for {row['ride_name']}...")
         collect_ride_data(csv_file, ride_id, months)
