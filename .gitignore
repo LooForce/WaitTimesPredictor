@@ -9,6 +9,9 @@ __pycache__/
 Models/
 *.pkl
 
+# Keep spacemountain.pkl for sample purposes
+!Models/spacemountain.pkl
+
 # OS-specific
 .DS_Store
 Thumbs.db
